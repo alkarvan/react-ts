@@ -1,0 +1,5 @@
+export * from './Header/header'
+export * from './MoviesContainer/Movies/Movies'
+export * from './MoviesContainer/MovieDetails/MovieDetails'
+export * from './GenresContainer/Genres'
+export * from './GenresContainer/Genre'

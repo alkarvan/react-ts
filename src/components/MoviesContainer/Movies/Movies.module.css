@@ -1,0 +1,10 @@
+.list_of_movies {
+    display: flex;
+    flex-wrap: wrap;
+
+}
+
+.buttons_div {
+    display: flex;
+    justify-content: space-between;
+}
