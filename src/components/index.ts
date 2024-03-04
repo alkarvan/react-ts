@@ -1,5 +1,6 @@
 export * from './Header/header'
 export * from './MoviesContainer/Movies/Movies'
 export * from './MoviesContainer/MovieDetails/MovieDetails'
+export * from './MoviesContainer/MovieDescription/MovieDescription'
 export * from './GenresContainer/Genres'
 export * from './GenresContainer/Genre'
