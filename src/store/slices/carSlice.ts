@@ -1,9 +1,8 @@
 import {createAsyncThunk, createSlice, isFulfilled} from "@reduxjs/toolkit";
+import {AxiosError} from "axios";
 
 import {ICar} from "../../interfaces";
 import {carService} from "../../services";
-import {AxiosError} from "axios";
-
 
 interface IState {
     cars:ICar[],
@@ -42,7 +41,6 @@ const create = createAsyncThunk<void, {car:ICar}>(
 )
 
  const updateById = createAsyncThunk<ICar, {id:number, carData:ICar}>(
-// const updateById = createAsyncThunk<IRes<ICar>, {id:number, carData:ICar}>(
     'carSlice/updateById',
     async ({id, carData}, {rejectWithValue}) => {
         try {

@@ -1,8 +1,9 @@
 import {SubmitHandler, useForm} from "react-hook-form";
+import {useEffect} from "react";
+
 import {ICar} from "../../interfaces";
 import {useAppDispatch, useAppSelector} from "../../hooks";
 import {carActions} from "../../store";
-import {useEffect} from "react";
 
 const CarForm = () => {
     const {reset, register, handleSubmit, setValue} = useForm<ICar>();
@@ -25,7 +26,7 @@ const CarForm = () => {
         dispatch(carActions.updateById({id:carForUpdate.id, carData:car}))
         reset()
     };
-// console.log({car})
+
     return (
         <form onSubmit={handleSubmit(carForUpdate?update:save)}>
             <input type="text" placeholder={'brand'} {...register('brand')}/>
