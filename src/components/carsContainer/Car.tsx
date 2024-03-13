@@ -18,7 +18,7 @@ const Car:FC<IProps> = ({car}) => {
             <div>price: {price}</div>
             <div>year: {year}</div>
             <button onClick={()=>dispatch(carActions.setCarForUpdate(car))}>update</button>
-            <button>delete</button>
+            <button onClick={()=>dispatch(carActions.deleteById({id}))}>delete</button>
         </div>
     );
 };

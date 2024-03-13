@@ -3,8 +3,7 @@ import {createAsyncThunk, createSlice, isFulfilled} from "@reduxjs/toolkit";
 import {ICar} from "../../interfaces";
 import {carService} from "../../services";
 import {AxiosError} from "axios";
-import {validateActive} from "@reduxjs/toolkit/dist/listenerMiddleware/task";
-import {fdatasyncSync} from "fs";
+
 
 interface IState {
     cars:ICar[],
@@ -42,12 +41,24 @@ const create = createAsyncThunk<void, {car:ICar}>(
     }
 )
 
-const updateById = createAsyncThunk<{car:ICar}, {id:number, car:ICar}>(
+ const updateById = createAsyncThunk<ICar, {id:number, carData:ICar}>(
+// const updateById = createAsyncThunk<IRes<ICar>, {id:number, carData:ICar}>(
     'carSlice/updateById',
     async ({id, carData}, {rejectWithValue}) => {
         try {
-            const {data} = await carService.updateById(id, carData);
-            return data
+            await carService.updateById(id, carData);
+        }catch (e) {
+            const err = e as AxiosError
+            return rejectWithValue(err.response.data)
+        }
+    }
+)
+
+const deleteById = createAsyncThunk<void, {id:number}>(
+    'carSlice/deleteById',
+    async ({id}, {rejectWithValue}) => {
+        try {
+            await carService.deleteById(id)
         }catch (e) {
             const err = e as AxiosError
             return rejectWithValue(err.response.data)
@@ -72,7 +83,7 @@ const carSlice = createSlice({
             .addCase(updateById.fulfilled, state => {
                 state.carForUpdate = null
             })
-            .addMatcher(isFulfilled(create, updateById), state => {
+            .addMatcher(isFulfilled(create, updateById, deleteById), state => {
                 state.trigger = !state.trigger
             })
 })
@@ -83,7 +94,8 @@ const carActions = {
     ...actions,
     getAll,
     create,
-    updateById
+    updateById,
+    deleteById
 }
 
 export {

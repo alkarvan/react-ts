@@ -15,14 +15,14 @@ const CarForm = () => {
             setValue('price', carForUpdate.price)
             setValue('year', carForUpdate.year)
         }
-    },[carForUpdate])
+    },[carForUpdate, setValue])
     const save:SubmitHandler<ICar> = (car) => {
         dispatch(carActions.create({car}))
         reset()
     };
 
-    const update:SubmitHandler<ICar> = (id, car) => {
-        dispatch(carActions.updateById({id:carForUpdate.id, carData: car}))
+    const update:SubmitHandler<ICar> = (car) => {
+        dispatch(carActions.updateById({id:carForUpdate.id, carData:car}))
         reset()
     };
 // console.log({car})
